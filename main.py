@@ -9,8 +9,10 @@ import os
 import subprocess
 from datetime import datetime
 import pyjokes
+from dotenv import load_dotenv 
 
-news_api_key="ff47108b1a1b43b4949c388675928563"
+load_dotenv()
+
 
 recognizer =sr.Recognizer()
 ttsx = pyttsx3.init()
@@ -20,7 +22,7 @@ def speak(text):
     ttsx.runAndWait()
 
 def aiProcess(command):
-    client = OpenAI(api_key = "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")
+    client = OpenAI(api_key = os.getenv("API_KEY"))
 
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -47,7 +49,7 @@ def processCommand(command):
         webbrowser.open("http://localhost:8082/") 
        
         # # Making the GET request
-        # response = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&apiKey={news_api_key}")
+        response = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&apiKey={os.getenv("NEWS_API_KEY")}")
 
         # # Checking if the request was successful
         # if response.status_code == 200:

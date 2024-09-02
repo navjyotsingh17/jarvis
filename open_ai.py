@@ -1,5 +1,10 @@
 from openai import OpenAI
-client = OpenAI(api_key = "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")
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client = OpenAI(api_key = os.getenv("OPEN_API_KEY"))
 
 completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
